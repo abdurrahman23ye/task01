@@ -28,6 +28,7 @@ public class MyStepdefinitions {
 
     Actions actions=new Actions(Driver.getDriver());
     WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+    JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
 
 
 
@@ -69,18 +70,12 @@ public class MyStepdefinitions {
         allPages.dizAltiCorapResultsPage().siyahColourCheckBox.click();
     }
 
-    @And("Kullanici ekrani renk kategorileri gorulene kadar asagi indiriririr")
-    public void kullaniciEkraniRenkKategorileriGoruleneKadarAsagiIndiriririr() {
-
-        //Javascripexecuter sürekli sorun verdigi icin action class ini kullandim
-
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
-
-    }
 
     @And("Kullanici siyah renk filtresinin aktif oldugunu dogrular")
     public void kullaniciSiyahRenkFiltresininAktifOldugunuDogrular() {
+
+        actions.sendKeys(Keys.PAGE_UP).perform();
+        actions.sendKeys(Keys.PAGE_UP).perform();
 
         Assert.assertTrue(allPages.
                 dizAltiCorapResultsPage().
@@ -92,10 +87,51 @@ public class MyStepdefinitions {
     @And("Kullanici rastgele bir urunu sepete ekler")
     public void kullaniciRastgeleBirUrunuSepeteEkler() {
 
+        jse.executeScript("arguments[0].scrollIntoView()", allPages.dizAltiCorapResultsPage().firstFilteredResult);
+
+        wait.until(ExpectedConditions.visibilityOf(allPages.dizAltiCorapResultsPage().firstFilteredResult));
+
         allPages.dizAltiCorapResultsPage().firstFilteredResult.click();
+
 
         wait.until(ExpectedConditions.visibilityOf(allPages.productAddingCartPage().addToCartButton));
 
         allPages.productAddingCartPage().addToCartButton.click();
+    }
+
+    @And("Kullanici sepeti goruntule butonunu tiklar")
+    public void kullaniciSepetiGoruntuleButonunuTiklar() {
+
+        allPages.productAddingCartPage().showToCartButton.click();
+    }
+
+    @And("Kullanici siparisi onayla butonuna basar")
+    public void kullaniciSiparisiOnaylaButonunaBasar() {
+
+        jse.executeScript("arguments[0].scrollIntoView()", allPages.cartPage().confirmOrdersButton);
+
+        wait.until(ExpectedConditions.visibilityOf(allPages.cartPage().confirmOrdersButton));
+
+
+        allPages.cartPage().confirmOrdersButton.click();
+    }
+
+    @And("Kullanici acilan sayfada uye olmadan devam et butonuna tiklar")
+    public void kullaniciAcilanSayfadaUyeOlmadanDevamEtButonunaTiklar() {
+
+        jse.executeScript("arguments[0].scrollIntoView()", allPages.orderPage().continueWithoutRegisterButton);
+
+        wait.until(ExpectedConditions.visibilityOf(allPages.orderPage().continueWithoutRegisterButton));
+
+        allPages.orderPage().continueWithoutRegisterButton.click();
+    }
+
+    @And("Kullanici ekrani renk kategorileri gorulene kadar asagi indirir")
+    public void kullaniciEkraniRenkKategorileriGoruleneKadarAsagiIndirir() {
+
+        //Javascripexecuter sürekli sorun verdigi icin action class ini kullandim
+
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
     }
 }

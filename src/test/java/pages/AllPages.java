@@ -5,6 +5,8 @@ public class AllPages {
     private DizAltiCorapResultsPage dizAltiCorapResultsPage;
     private MainPage mainPage;
     private ProductAddingCartPage productAddingCartPage;
+    private CartPage cartPage;
+    private OrderPage orderPage;
 
     public ProductAddingCartPage productAddingCartPage() {
         if (productAddingCartPage == null) {
@@ -27,5 +29,21 @@ public class AllPages {
         }
 
         return mainPage;
+    }
+
+    public CartPage cartPage(){
+        if (cartPage == null) {
+            cartPage = new CartPage();
+        }
+
+        return cartPage;
+    }
+
+    public OrderPage orderPage(){
+        if (orderPage == null) {
+            orderPage = new OrderPage();
+        }
+
+        return orderPage;
     }
 }

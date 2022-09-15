@@ -13,5 +13,10 @@ public class ProductAddingCartPage {
     @FindBy(xpath = "//button[@class='add-to-basket button green block with-icon js-add-basket']")
     public WebElement addToCartButton;
 
+    @FindBy(xpath = "//a[@href='/baskets/basket/' and @class='go-to-shop']")
+    public WebElement showToCartButton;
+
+
+
 
 }
