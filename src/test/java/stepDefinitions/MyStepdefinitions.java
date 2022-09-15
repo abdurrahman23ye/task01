@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -87,14 +88,14 @@ public class MyStepdefinitions {
     @And("Kullanici rastgele bir urunu sepete ekler")
     public void kullaniciRastgeleBirUrunuSepeteEkler() {
 
-        jse.executeScript("arguments[0].scrollIntoView()", allPages.dizAltiCorapResultsPage().firstFilteredResult);
-
-        wait.until(ExpectedConditions.visibilityOf(allPages.dizAltiCorapResultsPage().firstFilteredResult));
 
         allPages.dizAltiCorapResultsPage().firstFilteredResult.click();
 
 
-        wait.until(ExpectedConditions.visibilityOf(allPages.productAddingCartPage().addToCartButton));
+        wait.
+                until(ExpectedConditions.
+                visibilityOfElementLocated(By.
+                        xpath("//button[@class='add-to-basket button green block with-icon js-add-basket']")));
 
         allPages.productAddingCartPage().addToCartButton.click();
     }
@@ -108,9 +109,8 @@ public class MyStepdefinitions {
     @And("Kullanici siparisi onayla butonuna basar")
     public void kullaniciSiparisiOnaylaButonunaBasar() {
 
-        jse.executeScript("arguments[0].scrollIntoView()", allPages.cartPage().confirmOrdersButton);
 
-        wait.until(ExpectedConditions.visibilityOf(allPages.cartPage().confirmOrdersButton));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/orders/checkout/']")));
 
 
         allPages.cartPage().confirmOrdersButton.click();
@@ -119,9 +119,11 @@ public class MyStepdefinitions {
     @And("Kullanici acilan sayfada uye olmadan devam et butonuna tiklar")
     public void kullaniciAcilanSayfadaUyeOlmadanDevamEtButonunaTiklar() {
 
-        jse.executeScript("arguments[0].scrollIntoView()", allPages.orderPage().continueWithoutRegisterButton);
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
+        actions.sendKeys(Keys.PAGE_DOWN).perform();
 
-        wait.until(ExpectedConditions.visibilityOf(allPages.orderPage().continueWithoutRegisterButton));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#' and @class='js-go-back']")));
 
         allPages.orderPage().continueWithoutRegisterButton.click();
     }

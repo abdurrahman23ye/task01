@@ -17,7 +17,7 @@ public class DizAltiCorapResultsPage {
     @FindBy(xpath = "//label[@class='selected-filters-item']")
     public WebElement selectedItemLAbel;
 
-    @FindBy(xpath = "//div[@class='count']") //urunlerin yeri degisebileceginden urun ekleme indeksi uzerinden locate ettim
+    @FindBy(xpath = "(//div[@class='count'])[1]") //urunlerin yeri degisebileceginden urun ekleme indeksi uzerinden locate ettim
     public WebElement firstFilteredResult;
 
 
