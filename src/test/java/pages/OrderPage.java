@@ -11,8 +11,14 @@ public class OrderPage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(xpath = "//a[@href='#' and @class='js-go-back']")
+    @FindBy(xpath = "//a[@href='#' and @title='ÜYE OLMADAN DEVAM ET']")
     public WebElement continueWithoutRegisterButton;
+
+    @FindBy(xpath = "//input[@name='user_email']")
+    public WebElement emailLabel;
+
+    @FindBy(xpath = "//button[@class='button block green']")
+    public WebElement devamEtLabel;
 
 
 

@@ -14,10 +14,13 @@ public class DizAltiCorapResultsPage {
     @FindBy(xpath = "(//li[@class='checkbox'])[5]")
     public WebElement siyahColourCheckBox;
 
+
+
+
     @FindBy(xpath = "//label[@class='selected-filters-item']")
     public WebElement selectedItemLAbel;
 
-    @FindBy(xpath = "(//div[@class='count'])[1]") //urunlerin yeri degisebileceginden urun ekleme indeksi uzerinden locate ettim
+    @FindBy(xpath = "//h3") //urunlerin yeri degisebileceginden spesifik bir ürün secmedim
     public WebElement firstFilteredResult;
 
 

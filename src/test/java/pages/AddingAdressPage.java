@@ -5,19 +5,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class AppearPopUp {
+public class AddingAdressPage {
 
-    public AppearPopUp(){
+    public AddingAdressPage(){
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(xpath = "//div[text()='X']")
-    public WebElement closePopUp;
+    @FindBy(xpath = "//a[@title='Yeni adres oluştur']")
+    public WebElement createAdress;
 
-
-
-
-
-
-
+    @FindBy(xpath = "//input[@name='title']")
+    public WebElement adressTitle;
 }

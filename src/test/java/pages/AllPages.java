@@ -7,6 +7,7 @@ public class AllPages {
     private ProductAddingCartPage productAddingCartPage;
     private CartPage cartPage;
     private OrderPage orderPage;
+    private AddingAdressPage addingAdressPage;
 
     public ProductAddingCartPage productAddingCartPage() {
         if (productAddingCartPage == null) {
@@ -45,5 +46,13 @@ public class AllPages {
         }
 
         return orderPage;
+    }
+
+    public AddingAdressPage addingAdressPage(){
+        if (addingAdressPage == null) {
+            addingAdressPage = new AddingAdressPage();
+        }
+
+        return addingAdressPage;
     }
 }

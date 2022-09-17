@@ -13,3 +13,6 @@ Feature: A101 web sayfasindan siyah dizalti corap alma
     And Kullanici sepeti goruntule butonunu tiklar
     And Kullanici siparisi onayla butonuna basar
     And Kullanici acilan sayfada uye olmadan devam et butonuna tiklar
+    And Kullanici email labeline email adresi yazar ve devam et butonunu tiklar
+    And Kullanici yeni adres ekle linkine basar
+    And Kullanici adres bilgilerini girer ve kaydet tusuna basar

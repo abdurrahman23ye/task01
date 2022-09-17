@@ -1,22 +1,18 @@
 package stepDefinitions;
 
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AllPages;
-import pages.MainPage;
 import utilities.ConfigReader;
 import utilities.Driver;
-
 import java.time.Duration;
 
 
@@ -29,7 +25,9 @@ public class MyStepdefinitions {
 
     Actions actions=new Actions(Driver.getDriver());
     WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
-    JavascriptExecutor jse = (JavascriptExecutor)Driver.getDriver();
+    Faker faker=new Faker();
+
+
 
 
 
@@ -37,12 +35,16 @@ public class MyStepdefinitions {
     public void kullaniciAWebSayfasinaGider(String url) {
 
         Driver.getDriver().get(ConfigReader.getProperty(url));
+
+
     }
 
     @Then("Kullanici cerezleri kabul eder")
     public void kullaniciCerezleriKabulEder() {
 
        allPages.mainPage().acceptCookieButton.click();
+
+
     }
 
 
@@ -62,6 +64,8 @@ public class MyStepdefinitions {
 
         allPages.mainPage().dizAltiCorapLink.click();
 
+
+
     }
 
 
@@ -69,6 +73,8 @@ public class MyStepdefinitions {
     public void kullaniciDizaltiCorapSonuclariniSiyahRenkOlarakFiltreler() {
 
         allPages.dizAltiCorapResultsPage().siyahColourCheckBox.click();
+
+
     }
 
 
@@ -77,6 +83,9 @@ public class MyStepdefinitions {
 
         actions.sendKeys(Keys.PAGE_UP).perform();
         actions.sendKeys(Keys.PAGE_UP).perform();
+        actions.sendKeys(Keys.PAGE_UP).perform();
+
+
 
         Assert.assertTrue(allPages.
                 dizAltiCorapResultsPage().
@@ -88,14 +97,16 @@ public class MyStepdefinitions {
     @And("Kullanici rastgele bir urunu sepete ekler")
     public void kullaniciRastgeleBirUrunuSepeteEkler() {
 
+        wait.until(ExpectedConditions.elementToBeClickable(allPages.
+                dizAltiCorapResultsPage().firstFilteredResult));
+
 
         allPages.dizAltiCorapResultsPage().firstFilteredResult.click();
 
 
         wait.
                 until(ExpectedConditions.
-                visibilityOfElementLocated(By.
-                        xpath("//button[@class='add-to-basket button green block with-icon js-add-basket']")));
+                        elementToBeClickable(allPages.productAddingCartPage().addToCartButton));
 
         allPages.productAddingCartPage().addToCartButton.click();
     }
@@ -110,7 +121,8 @@ public class MyStepdefinitions {
     public void kullaniciSiparisiOnaylaButonunaBasar() {
 
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/orders/checkout/']")));
+
+
 
 
         allPages.cartPage().confirmOrdersButton.click();
@@ -120,10 +132,12 @@ public class MyStepdefinitions {
     public void kullaniciAcilanSayfadaUyeOlmadanDevamEtButonunaTiklar() {
 
         actions.sendKeys(Keys.PAGE_DOWN).perform();
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
 
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#' and @class='js-go-back']")));
+
+
+        wait.until(ExpectedConditions.elementToBeClickable(allPages.
+                orderPage().continueWithoutRegisterButton));
 
         allPages.orderPage().continueWithoutRegisterButton.click();
     }
@@ -131,9 +145,55 @@ public class MyStepdefinitions {
     @And("Kullanici ekrani renk kategorileri gorulene kadar asagi indirir")
     public void kullaniciEkraniRenkKategorileriGoruleneKadarAsagiIndirir() {
 
-        //Javascripexecuter sürekli sorun verdigi icin action class ini kullandim
+        //Javascripexecuter sürekli sorun verdigi icin scrollda action class ini kullandim
 
         actions.sendKeys(Keys.PAGE_DOWN).perform();
         actions.sendKeys(Keys.PAGE_DOWN).perform();
+
+
+
+
+    }
+
+
+
+    @And("Kullanici email labeline email adresi yazar ve devam et butonunu tiklar")
+    public void kullaniciEmailLabelineEmailAdresiYazarVeDevamEtButonunuTiklar() {
+
+        allPages.orderPage().emailLabel.sendKeys(ConfigReader.getProperty("mail1"));
+        allPages.orderPage().devamEtLabel.click();
+
+
+
+    }
+
+
+    @And("Kullanici yeni adres ekle linkine basar")
+    public void kullaniciYeniAdresEkleLinkineBasar() {
+        allPages.addingAdressPage().createAdress.click();
+    }
+
+
+    @And("Kullanici adres bilgilerini girer ve kaydet tusuna basar")
+    public void kullaniciAdresBilgileriniGirerVeKaydetTusunaBasar() {
+
+        allPages.addingAdressPage().adressTitle.sendKeys("ev");
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys(faker.name().firstName()).perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys(faker.name().lastName()).perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys(faker.phoneNumber().subscriberNumber(10)).perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys("ankara").perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys("akyurt").perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys("a mahallesi").perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys(faker.address().buildingNumber()).perform();
+        actions.sendKeys(Keys.TAB).perform();
+        actions.sendKeys("06750").perform();
+        actions.sendKeys(Keys.TAB).click().perform();
     }
 }

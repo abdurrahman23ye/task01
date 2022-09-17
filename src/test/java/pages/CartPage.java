@@ -11,7 +11,7 @@ public class CartPage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(xpath = "//a[@href='/orders/checkout/']")
+    @FindBy(xpath = "(//a[@title='Sepeti Onayla'])[2]")
     public WebElement confirmOrdersButton;
 
 
