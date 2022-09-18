@@ -16,4 +16,6 @@ public class AddingAdressPage {
 
     @FindBy(xpath = "//input[@name='title']")
     public WebElement adressTitle;
+
+
 }

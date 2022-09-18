@@ -6,14 +6,18 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.AllPages;
 import utilities.ConfigReader;
 import utilities.Driver;
 import java.time.Duration;
+
 
 
 public class MyStepdefinitions {
@@ -26,7 +30,6 @@ public class MyStepdefinitions {
     Actions actions=new Actions(Driver.getDriver());
     WebDriverWait wait=new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
     Faker faker=new Faker();
-
 
 
 
@@ -177,6 +180,16 @@ public class MyStepdefinitions {
     @And("Kullanici adres bilgilerini girer ve kaydet tusuna basar")
     public void kullaniciAdresBilgileriniGirerVeKaydetTusunaBasar() {
 
+        Select townShip=new Select(Driver.getDriver().
+                findElement(By.xpath("//select[@name='township']")));
+
+        Select district=new Select(Driver.getDriver().
+                findElement(By.xpath("//select[@name='district']")));
+
+
+
+
+
         allPages.addingAdressPage().adressTitle.sendKeys("ev");
         actions.sendKeys(Keys.TAB).perform();
         actions.sendKeys(faker.name().firstName()).perform();
@@ -187,13 +200,20 @@ public class MyStepdefinitions {
         actions.sendKeys(Keys.TAB).perform();
         actions.sendKeys("ankara").perform();
         actions.sendKeys(Keys.TAB).perform();
-        actions.sendKeys("akyurt").perform();
+
+        townShip.selectByIndex(3);
         actions.sendKeys(Keys.TAB).perform();
-        actions.sendKeys("a mahallesi").perform();
+
+        district.selectByIndex(3);
         actions.sendKeys(Keys.TAB).perform();
-        actions.sendKeys(faker.address().buildingNumber()).perform();
+        actions.sendKeys("Bayat Mah. cumhuriyet sok. no:14/7").perform();
         actions.sendKeys(Keys.TAB).perform();
-        actions.sendKeys("06750").perform();
+        actions.sendKeys("06710").perform();
         actions.sendKeys(Keys.TAB).click().perform();
     }
-}
+
+
+    }
+
+
+
