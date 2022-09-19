@@ -16,3 +16,4 @@ Feature: A101 web sayfasindan siyah dizalti corap alma
     And Kullanici email labeline email adresi yazar ve devam et butonunu tiklar
     And Kullanici yeni adres ekle linkine basar
     And Kullanici adres bilgilerini girer ve kaydet tusuna basar
+    And Kullanici rastgele kargo tercihi yapar kaydedip devam eder

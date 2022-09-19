@@ -188,8 +188,6 @@ public class MyStepdefinitions {
 
 
 
-
-
         allPages.addingAdressPage().adressTitle.sendKeys("ev");
         actions.sendKeys(Keys.TAB).perform();
         actions.sendKeys(faker.name().firstName()).perform();
@@ -200,20 +198,33 @@ public class MyStepdefinitions {
         actions.sendKeys(Keys.TAB).perform();
         actions.sendKeys("ankara").perform();
         actions.sendKeys(Keys.TAB).perform();
-
         townShip.selectByIndex(3);
         actions.sendKeys(Keys.TAB).perform();
-
-        district.selectByIndex(3);
         actions.sendKeys(Keys.TAB).perform();
         actions.sendKeys("Bayat Mah. cumhuriyet sok. no:14/7").perform();
         actions.sendKeys(Keys.TAB).perform();
         actions.sendKeys("06710").perform();
-        actions.sendKeys(Keys.TAB).click().perform();
+        district.selectByIndex(3);
+
+        allPages.addingAdressPage().savingAdressButoon.click();
+
     }
 
 
+    @And("Kullanici rastgele kargo tercihi yapar kaydedip devam eder")
+    public void kullaniciRastgeleKargoTercihiYaparKaydedipDevamEder() {
+
+
+        wait.until(ExpectedConditions.
+                elementToBeClickable(allPages.addingAdressPage().selectingShippingOption));
+
+        allPages.addingAdressPage().selectingShippingOption.click();
+
+
+
+
     }
+}
 
 
 
